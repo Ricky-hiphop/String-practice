@@ -1,0 +1,24 @@
+import re
+import sys
+import time
+
+def extract_number(s):
+    # 使用正则表达式匹配字符串中的数字部分
+    match = re.search(r'\d+(?:\.\d+)?', s)
+    if match:
+        number_str = match.group(0)
+        # 如果数字部分包含小数点，则截取小数点后两位
+        if '.' in number_str:
+            have_point=number_str.rstrip('0')
+            list=have_point.split('.')[0]
+            return f"{list}.00"
+        else:
+            # 如果没有小数点，则在数字后添加 ".00"
+            return f"{number_str}.00"
+    return ""
+
+# 测试代码
+test_strings = ["abcd123.456", "abcd123.11123","123123asd"]
+for test in test_strings:
+    result = extract_number(test)
+    print(f"Original: {test}, Extracted: {result}")
